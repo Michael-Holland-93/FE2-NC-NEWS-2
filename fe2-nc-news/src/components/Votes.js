@@ -3,33 +3,35 @@ import * as api from './api';
 
 class Votes extends Component {
     state = {
-        votes: 0,
         voteChange: 0
     }
     render() {
-        console.log(this.props)
         return (
             <div>
                 <section>
-                    <button onClick={this.vote(1)} disabled={this.state.voteChange === 1}>Up</button>
-                    <p>Votes: {this.state.votes}</p>
-                    <button onClick={this.vote(-1)} disabled={this.state.voteChange === -1}>Down</button>
+                    <button onClick={() => this.vote(1)} disabled={this.state.voteChange === 1}>Up</button>
+                    <div>
+                    {this.props.type === 'comments' ? 
+                    <p>Votes: {this.props.comment_votes + this.state.voteChange}</p>
+                    : <p>Votes: {this.props.votes + this.state.voteChange}</p>}
+                    </div>
+                    <button onClick={() => this.vote(-1)} disabled={this.state.voteChange === -1}>Down</button>
                 </section>
             </div>
         );
     }
 
-    vote(increment) {
+    vote = (increment) => {
+        if (this.props.type === 'articles') {
+            const { id } = this.props;
+        api.updateArticleVotes(id, increment);
         this.setState({ voteChange: this.state.voteChange + increment });
+        } else if (this.props.type === 'comments') {
+            const { id, comment_id } = this.props;
+        api.updateCommentVotes(id, comment_id, increment);
+        this.setState({ voteChange: this.state.voteChange + increment });
+        }
     }
-
-    componentDidMount() {
-        api.getCurrentVotes(this.props.article).then(votes => {
-          this.setState({ voteChange: votes });
-        });
-      }
-
-
 
 }
 

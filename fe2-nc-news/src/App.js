@@ -10,33 +10,38 @@ import { Link, Router } from '@reach/router';
 import Votes from './components/Votes';
 import Comments from './components/Comments';
 import Error from './components/Error';
+import Article from './components/Article';
 
 class App extends Component {
+  state = {
+    user: ''
+  }
+
   render() {
     return (
       <div className="App">
-      {/* <Authorisation> */}
         <Header />
-        <Navigator />
-        <Router className="articles">
-          <Articles path="/" >
-            <Comments />
-          </Articles>
-          <Articles path="/topics/:topic" >
-            <Comments />
-          </Articles>
-          <Articles path="/:article_id" >
-            <Comments />
-            <Votes />
-          </Articles>
-          <Error path = '/error'></Error>
-        </Router>
-        <Sidebar />
+        <Navigator user={this.state.user} logout={this.logout}/>
+        <Authorisation user={this.state.user} setUser={this.setUser}>
+          <Router className="articles">
+            <Articles path="/" />
+            <Articles path="/topics/:topic" />
+            <Article path="/articles/:article_id" />
+          </Router>
+        </Authorisation>
         <Footer />
-      {/* </Authorisation> */}
       </div>
     );
   }
+
+  setUser = (username) => {
+    this.setState({ user: username });
+  }
+
+  logout = () => {
+      this.setState({ user: '' })
+  }
+
 }
 
 export default App;
