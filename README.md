@@ -1,68 +1,11 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This project contains the front end to the NC-Knews project.
 
-## Available Scripts
+The webpage will ask for your username to log in to see the content. A valid username is: 
+jessjelly, 
+so this can be typed in to unlock the content. Clicking the button that says logout will log you out of that user.
 
-In the project directory, you can run:
+After logging in the home page will load, which has all the articles listed in the main body of the webpage. There are three topics to choose from beneath the Header, selecting any of these will provide all the articles related to that topic. After selecting a topic there is a button to add an article, the two fields above must be filled in first which are article title and article body. At the bottom of each of these pages there are buttons to either go to the next page or to the previous page of articles, these buttons will no longer work when there are no more articles to display. Selecting the title of an article will give all the information about that article in the main section and all the comments in the sidebar to the right of it. There are buttons to vote on the articles to give a positive or negative review about them depending on your opinion. There is a button to delete the article, upon clicking this the webpage will then reload the homepage.
 
-### `npm start`
+There are also buttons to vote on each comment depending on whether you like them or not and to add or delete comments. To add a comment the field comment body must be filled in first.
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
-
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
-### `npm run build`
-
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
-
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
-
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
-
-### `npm run eject`
-
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
-
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+There is also a users button that will give all the usernames of the people who have provided the articles and comments. Selecting a user will provide the users information in the main section of the article and the users avatar to the right of this.

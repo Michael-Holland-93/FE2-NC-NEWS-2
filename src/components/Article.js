@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
-import Comments from './Comments';
 import * as api from './api';
-import Sidebar from './Sidebar';
 import Main from './Main';
 import Error from './Error';
+import Comments from './Comments';
 
 class Article extends Component {
     state = {
         title: '',
         author: '',
-        article_id: Number,
+        article_id: 0,
         topic: '',
         body: '',
         created_at: Number,
         comment_count: Number,
         votes: Number,
-        err: null
+        err: null,
+        count: 0
     }
     render() {
         const { err } = this.state;
@@ -23,7 +23,7 @@ class Article extends Component {
             err ? <Error /> :
             <div className="Article">
             <Main article={this.state} />
-            <Sidebar article={this.state} />
+            <Comments article={this.state} user_id={this.props.user_id} />
             </div>
         );
     }
@@ -35,6 +35,7 @@ class Article extends Component {
     componentDidUpdate(prevProps, prevState) {
         if (prevProps !== this.props) {
             this.fetchArticle();
+            this.setState({ count: 1 });
         }
     }
 

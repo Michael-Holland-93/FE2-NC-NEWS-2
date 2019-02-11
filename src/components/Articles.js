@@ -1,24 +1,27 @@
 import React, { Component } from 'react';
-import { Router, Link } from '@reach/router';
+import { Link } from '@reach/router';
 import * as api from './api';
 import Votes from './Votes';
 import Error from './Error';
-import Article from './Article';
+import AddArticle from './AddArticle';
 
 class Articles extends Component {
     state = ({
         articles: [],
         err: null,
         page: 0,
+        title: '',
+        body: '',
+        user_id: Number
     })
     render() {
-        console.log(this.state.page);
         const { err } = this.state;
         return (
-            err ? <Error></Error> :
-            <div className="Articles">
+            err ? <Error /> :
+            <div className="articles">
+                <AddArticle addNewArticle={this.addNewArticle} articles={this.state.articles} page={this.state.page} topic={this.props.topic} title={this.state.title} body={this.state.body} user_id={this.props.user_id}  />
                 <div>
-                    <ul key="articlesList">
+                    <ul className="bulletPoints" key="articlesList">
                         {this.state.articles.map((article) => {
                             return <li key={article.article_id}>
                             <Link to={`/articles/${article.article_id}`}><h2>{article.title}</h2></Link>
@@ -29,8 +32,8 @@ class Articles extends Component {
                 </div>
                 <div>
                     <form onSubmit={this.handleSubmit}>
-                    <button onClick={() => {this.handleClick(-1)}} disabled={this.state.page === 0}>Previous page</button>
-                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.articles.length === 0}>Next page</button>
+                    <button onClick={() => {this.handleClick(-1)}} disabled={this.state.page === 0} className="button">Previous page</button>
+                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.articles.length === 0} className="button">Next page</button>
                     </form>
                 </div>
             </div>
@@ -65,6 +68,21 @@ class Articles extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.fetchArticles(this.state.page);
+    }
+
+    addNewArticle = (newArticle) => {
+        this.setState((prevState) => ({
+            articles: [newArticle, ...prevState.articles]
+        }))
+    }
+
+    removeArticle = (filteredArticle) => {
+        const filteredArticles = this.state.articles.filter((article) => {
+            if (article.article_id !== filteredArticle.article_id) {
+                return article;
+            }
+        })
+        this.setState({ articles: filteredArticles });
     }
 
 }

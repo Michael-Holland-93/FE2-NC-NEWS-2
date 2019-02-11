@@ -9,13 +9,13 @@ class Votes extends Component {
         return (
             <div>
                 <section>
-                    <button onClick={() => this.vote(1)} disabled={this.state.voteChange === 1}>Up</button>
                     <div>
                     {this.props.type === 'comments' ? 
                     <p>Votes: {this.props.comment_votes + this.state.voteChange}</p>
                     : <p>Votes: {this.props.votes + this.state.voteChange}</p>}
                     </div>
-                    <button onClick={() => this.vote(-1)} disabled={this.state.voteChange === -1}>Down</button>
+                    <button onClick={() => this.vote(1)} disabled={this.state.voteChange === 1} className="button">Vote Up</button>
+                    <button onClick={() => this.vote(-1)} disabled={this.state.voteChange === -1} className="button">Vote Down</button>
                 </section>
             </div>
         );

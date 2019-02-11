@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import * as api from './api';
-import Votes from './Votes';
 import Error from './Error';
+import ObjectMapper from './ObjectMapper';
+import AddComment from './AddComment';
 
 class Comments extends Component {
+    _isMounted = false;
+
     state = {
         comments: [],
         err: null,
@@ -13,35 +16,20 @@ class Comments extends Component {
         const { err } = this.state;
         return (
             err ? <Error /> :
-            <div>
+            <div className="comments">
                 <div>
                     <h3>Comments about {this.props.article.title}</h3>
                 </div>
-                <ul>
-                    {this.state.comments.map((comment) => {
-                        let num = 0;
-                    for (var key in comment) {
-                        num = num + 1;
-                    }
-                    const arr = [];
-                    let count = 0;
-                        for (var key in comment) {
-                        arr.push(key + ':' + ' ' + comment[key]);
-                        count = count + 1;
-                        if (count < num) {
-                            arr.push(', ');
-                        }
-                    }
-                    arr.push(<br />)
-                    return <li>{arr}
-                    <Votes type='comments' id={this.props.article.article_id} votes={this.props.article.votes} comment_id={comment.comment_id} comment_votes={comment.votes} />
-                    </li>;
-                })}
-                </ul>
                 <div>
-                    <form onSubmit={this.handleSubmit}>
-                    <button onClick={() => {this.handleClick(-1)}} disabled={this.state.page === 0}>Previous page</button>
-                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.comments.length === 0}>Next page</button>
+                <AddComment addNewComment={this.addNewComment} user_id={this.props.user_id} article={this.props.article} comments={this.state.comments} />
+                </div>
+                <div>
+                <ObjectMapper array={this.state.comments} id={this.props.article.article_id} votes={this.props.article.votes} />
+                </div>
+                <div>
+                    <form onSubmit={this.handleSubmit} >
+                    <button onClick={() => {this.handleClick(-1)}} disabled={this.state.page === 0} className="button">Previous page</button>
+                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.comments.length === 0} className="button">Next page</button>
                     </form>
                 </div>
             </div>
@@ -51,14 +39,21 @@ class Comments extends Component {
     getComments(page) {
         api.getCommentsByArticleId(this.props.article.article_id, page)
         .then((comments) => {
+            if (this._isMounted === true) {
             this.setState({
                 comments
             })
+        }
         })
     }
 
     componentDidMount() {
+        this._isMounted = true;
         this.getComments(this.state.page);
+    }
+
+    componentWillUnmount() {
+        this._isMounted = false;
     }
 
     componentDidUpdate(prevProps, prevState) {
@@ -66,6 +61,9 @@ class Comments extends Component {
             this.getComments(this.state.page);
         }
         if (prevState.page !== this.state.page) {
+            this.getComments(this.state.page);
+        }
+        if (prevState.comments !== this.state.comments) {
             this.getComments(this.state.page);
         }
     }
@@ -77,6 +75,23 @@ class Comments extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.getComments(this.state.page);
+    }
+
+    addNewComment = (newComment) => {
+        this.setState((prevState) => ({
+            comments: [newComment, ...prevState.comments]
+        }))
+    }
+
+    removeComment = (filterComment) => {
+        const filteredComments = this.state.comments.filter((comment) => {
+            if (comment.comment_id !== filterComment.comment_id) {
+                return comment;
+            }
+        })
+        this.setState({
+            comments: filteredComments
+        })
     }
 
 }

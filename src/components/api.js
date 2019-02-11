@@ -22,7 +22,7 @@ export const getUsernames = async () => {
 
 export const getUserByUsername = async (username) => {
     const { data } = await axios.get(`${BASEURL}/users/${username}`);
-    return data.username;
+    return data.user;
 }
 
 export const updateArticleVotes = async (article_id, increment) => {
@@ -43,4 +43,27 @@ export const getCommentsByArticleId = async (article, page = 0) => {
 export const getArticleByArticleId = async (article) => {
     const { data } = await axios.get(`${BASEURL}/articles/${article}`);
     return data.articles[0];
+}
+
+export const postArticle = async (title, body, user_id, topic) => {
+    const { data } = await axios.post(`${BASEURL}/topics/${topic}/articles`, { title, body, user_id });
+    return data.article;
+}
+
+export const postComment = async (article_id, body, user_id) => {
+    const { data } = await axios.post(`${BASEURL}/articles/${article_id}/comments`, {article_id, body, user_id});
+    console.log(data.comment);
+    return data.comment;
+}
+
+export const deleteArticle = async (article_id) => {
+    const { data } = await axios.delete(`${BASEURL}/articles/${article_id}`);
+    console.log(data.article);
+    return data.article;
+}
+
+export const deleteComment = async (article_id, comment_id) => {
+    const { data } = await axios.delete(`${BASEURL}/articles/${article_id}/comments/${comment_id}`);
+    console.log(data.comment);
+    return data.comment;
 }

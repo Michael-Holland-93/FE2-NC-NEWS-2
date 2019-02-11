@@ -10,6 +10,7 @@
   grid-area: header;
   background-color: rgba(255, 0, 0, 0.1);
   border: 3px solid rgba(255, 0, 0, 1);
+  font-size: 4vw;
 }
 
 .Navigator {
@@ -44,6 +45,12 @@
   border: 3px solid rgba(255, 255, 0, 1);
 }
 
+.comments {
+  grid-area: sidebar;
+  background-color: rgba(255, 255, 0, 0.1);
+  border: 3px solid rgba(255, 255, 0, 1);
+}
+
 .Footer {
   grid-area: footer;
   background-color: rgba(0, 255, 255, 0.1);
@@ -53,3 +60,57 @@
 span + span {
   margin-left: 10px;
 }
+
+.button {
+  border: 1px solid rgba(0, 125, 125, 1);
+}
+
+.user_container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 'user userSidebar';
+  height: 100%
+  /* background-color: rgba(0, 0, 255, 0.1); */
+  /* border: 3px solid rgba(0, 0, 255, 1); */
+}
+
+.bulletPoints {
+  list-style: none;
+  text-align: center;
+  /* border: solid red 1px; */
+}
+
+ul {
+  text-align: center;
+  list-style-position: inside;
+}
+
+ li {
+   font-size: 2vw;
+ }
+
+span {
+  font-size: 2vw;
+}
+
+img {
+  width: 100%;
+}
+
+button {
+  width: 40%;
+}
+
+.addArticleButton {
+  width: 70%;
+  border: 1px solid rgba(0, 125, 125, 1);
+}
+
+.addCommentButton {
+  width: 70%;
+  border: 1px solid rgba(0, 125, 125, 1);
+}
+
+ input {
+  border: 1px solid rgba(255, 0, 255, 1);
+ }

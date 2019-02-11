@@ -4,6 +4,7 @@ import * as api from './api';
 class Authorisation extends Component {
     state = ({
         username: '',
+        user_id: Number,
         err: null
     })
     render() {
@@ -12,7 +13,7 @@ class Authorisation extends Component {
                 <form onSubmit={this.handleSubmit} id="submittedUsername">
                     <label>Username</label>
                     <input type="text" id="username" onChange={this.handleChange}/>
-                    <button >Submit</button>
+                    <button className="button" >Submit</button>
                 </form>
             </div>
     }
@@ -26,9 +27,10 @@ class Authorisation extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         api.getUsernames().then((usernames) => {
-            usernames.forEach(({username}) => {
+            usernames.forEach(({username, user_id}) => {
                 if (username === this.state.username) {
-                    this.props.setUser(username);
+                    this.props.setUser(username, user_id);
+                    this.setState({ user_id });
                 }
             })
         })

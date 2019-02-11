@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Link, Router } from '@reach/router';
+import { Link } from '@reach/router';
 import * as api from './api';
 import Error from './Error';
 
@@ -15,13 +15,11 @@ class Navigator extends Component {
             <nav className="Navigator">
             <span><Link to="/">Home</Link></span>
                 {this.state.topics.map((topic) => {
-                    return <span key={topic.slug}><Link to={`/topics/${topic.slug}`} >{topic.slug}</Link></span>
+                    return <span key={topic.slug}><Link to={`/topics/${topic.slug}`}>{topic.slug}</Link></span>
                 })}
-            <span>
-                <p>Logged in as {this.props.user}</p><button onClick={this.props.logout}>Logout</button>
-                </span>
+            <span><Link to="/users">Users</Link></span>
+            {this.loggedIn()}
             </nav>
-
         );
     }
 
@@ -35,9 +33,13 @@ class Navigator extends Component {
         })
     }
 
-    loggedIn = () => {
+    loggedIn() {
         if (this.props.user !== '') {
-            
+            return (
+                <span>
+                <p>Logged in as {this.props.user}</p><button onClick={this.props.logout} className="button">Logout</button>
+                </span>
+            )
         }
     }
 

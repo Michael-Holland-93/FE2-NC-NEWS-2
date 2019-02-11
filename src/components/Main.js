@@ -1,22 +1,32 @@
-import React, { Component } from 'react';
+import React from 'react';
+import Votes from './Votes';
+import DeleteArticle from './DeleteArticle';
 
-class Main extends Component {
-    render() {
-        return (
-            <div>
-                    <h2>{this.props.article.title}</h2>
-                    <ul>
-                        <li>author: {this.props.article.author}</li>
-                        <li>article id: {this.props.article.article_id}</li>
-                        <li>topic: {this.props.article.topic}</li>
-                        <li>body: {this.props.article.body}</li>
-                        <li>created at: {this.props.article.created_at}</li>
-                        <li>comment count: {this.props.article.comment_count}</li>
-                        <li>votes: {this.props.article.votes}</li>
+const Main = (props) => {
+    const { article } = props;
+    const date = new Date(article.created_at);
+    const formattedDate = date.toLocaleDateString();
+    props.article.count += 1
+
+    return (
+        props.article.count > 1 ?
+        <div>
+            <h2>{article.title}</h2>
+                    <ul className="bulletPoints">
+                        <li>author: {article.author}</li>
+                        <li>topic: {article.topic}</li>
+                        <li>body: {article.body}</li>
+                        <li>created at: {formattedDate}</li>
+                        <li>comment count: {article.comment_count}</li>
                     </ul>
-            </div>
-        );
-    }
-}
+                    <Votes type='articles' id={article.id} votes={article.votes}/>
+                    <DeleteArticle id={article.article_id} />
+        </div>
+        : 
+        <div>
+
+        </div>
+    );
+};
 
 export default Main;
