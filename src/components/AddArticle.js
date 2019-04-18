@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as api from './api';
+import '../styling/AddArticle.css';
+import { Button } from 'react-bootstrap';
 
 class AddArticle extends Component {
     state = {
@@ -8,7 +10,7 @@ class AddArticle extends Component {
         page: 0,
         title: '',
         body: '',
-        user_id: Number
+        user_id: null
     }
     render() {
         return (
@@ -20,22 +22,20 @@ class AddArticle extends Component {
                                 <input type="text" id="title" onChange={this.setTitle} /></li>
                                 <li><label>Article Body</label>
                                 <input type="text" id="body" onChange={this.setBody} /></li>
-                                <li><button className="addArticleButton" onClick={this.addArticle}>Add Article</button></li>
+                                <li><Button className="button" onClick={this.addArticle}>Add Article</Button></li>
                             </ul>
                         </form>
                         <br />
             </div> :
-            <div>
-
-            </div>
+            null
         );
     }
 
-    // componentDidUpdate(prevProps, prevState) {
-    //     if (this.state.title !== prevState.title && this.state.body !== prevState.body) {
-    //         this.addArticle();
-    //     } 
-    // }
+    componentDidUpdate(prevProps, prevState) {
+        if (this.state.title !== prevState.title && this.state.body !== prevState.body) {
+            this.addArticle();
+        } 
+    }
 
     setTitle = (event) => {
         event.preventDefault();

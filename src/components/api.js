@@ -52,18 +52,15 @@ export const postArticle = async (title, body, user_id, topic) => {
 
 export const postComment = async (article_id, body, user_id) => {
     const { data } = await axios.post(`${BASEURL}/articles/${article_id}/comments`, {article_id, body, user_id});
-    console.log(data.comment);
     return data.comment;
 }
 
 export const deleteArticle = async (article_id) => {
     const { data } = await axios.delete(`${BASEURL}/articles/${article_id}`);
-    console.log(data.article);
     return data.article;
 }
 
 export const deleteComment = async (article_id, comment_id) => {
     const { data } = await axios.delete(`${BASEURL}/articles/${article_id}/comments/${comment_id}`);
-    console.log(data.comment);
     return data.comment;
 }

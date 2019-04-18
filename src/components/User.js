@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import * as api from './api';
 import Error from './Error';
 import ObjectMapper from './ObjectMapper';
+import '../styling/User.css';
 
 class User extends Component {
     state = {

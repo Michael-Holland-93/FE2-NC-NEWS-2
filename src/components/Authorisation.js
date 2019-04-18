@@ -1,20 +1,24 @@
 import React, { Component } from 'react';
 import * as api from './api';
+import { Button } from 'react-bootstrap';
+import '../styling/Authorisation.css';
 
 class Authorisation extends Component {
     state = ({
         username: '',
-        user_id: Number,
+        user_id: null,
         err: null
     })
     render() {
         return this.props.user ? this.props.children 
-        :    <div>
+        :   <div>
                 <form onSubmit={this.handleSubmit} id="submittedUsername">
                     <label>Username</label>
                     <input type="text" id="username" onChange={this.handleChange}/>
-                    <button className="button" >Submit</button>
+                    <Button type="button" className="button" onClick={this.handleSubmit}>Submit</Button>
                 </form>
+                <br />
+                <p>A valid username is jessjelly</p>
             </div>
     }
 

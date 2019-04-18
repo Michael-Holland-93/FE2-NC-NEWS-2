@@ -1,11 +1,11 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
-import * as api from './api';
 import Error from './Error';
+import '../styling/Navigator.css';
+import { Button } from 'react-bootstrap';
 
 class Navigator extends Component {
     state = ({
-        topics: [],
         err: null
     })
     render() {
@@ -13,31 +13,20 @@ class Navigator extends Component {
         return (
             err ? <Error /> :
             <nav className="Navigator">
-            <span><Link to="/">Home</Link></span>
-                {this.state.topics.map((topic) => {
-                    return <span key={topic.slug}><Link to={`/topics/${topic.slug}`}>{topic.slug}</Link></span>
-                })}
-            <span><Link to="/users">Users</Link></span>
+            <span><button className="button"><Link to="/" style={{display: "block", height: "100%"}}>Home</Link></button></span>
+            <span><button className="button"><Link to="/topics" style={{display: "block", height: "100%"}}>Topics</Link></button></span>
+            <span><button className="button"><Link to="/users" style={{display: "block", height: "100%"}}>Users</Link></button></span>
             {this.loggedIn()}
             </nav>
         );
-    }
-
-    componentDidMount() {
-        api.getTopics()
-        .then((topics) => {
-            this.setState({ topics })
-        })
-        .catch(err => {
-            this.setState({ err })
-        })
     }
 
     loggedIn() {
         if (this.props.user !== '') {
             return (
                 <span>
-                <p>Logged in as {this.props.user}</p><button onClick={this.props.logout} className="button">Logout</button>
+                <p>Logged in as {this.props.user}</p>
+                <Button className="button" onClick={this.props.logout}>Logout</Button>
                 </span>
             )
         }

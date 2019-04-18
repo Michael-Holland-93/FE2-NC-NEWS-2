@@ -9,11 +9,12 @@ import { Router } from '@reach/router';
 import Article from './components/Article';
 import Users from './components/Users';
 import User from './components/User';
+import Topics from './components/Topics';
 
 class App extends Component {
   state = {
     user: '',
-    user_id: Number
+    user_id: null
   }
 
   render() {
@@ -24,6 +25,7 @@ class App extends Component {
         <Authorisation user={this.state.user} setUser={this.setUser} user_id={this.state.user_id}>
           <Router className="articles" >
             <Articles path="/" user_id={this.state.user_id}/>
+            <Topics path="/topics" />
             <Articles path="/topics/:topic" user_id={this.state.user_id}/>
             <Article path="/articles/:article_id" user_id={this.state.user_id}/>
             <Users path="/users" />
@@ -40,7 +42,7 @@ class App extends Component {
   }
 
   logout = () => {
-      this.setState({ user: '', user_id: Number })
+      this.setState({ user: '', user_id: null })
   }
 
 }

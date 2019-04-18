@@ -3,6 +3,7 @@ import * as api from './api';
 import Error from './Error';
 import ObjectMapper from './ObjectMapper';
 import AddComment from './AddComment';
+import '../styling/Comments.css';
 
 class Comments extends Component {
     _isMounted = false;
@@ -10,7 +11,8 @@ class Comments extends Component {
     state = {
         comments: [],
         err: null,
-        page: 0
+        page: 0,
+        disable: false
     }
     render() {
         const { err } = this.state;
@@ -24,12 +26,12 @@ class Comments extends Component {
                 <AddComment addNewComment={this.addNewComment} user_id={this.props.user_id} article={this.props.article} comments={this.state.comments} />
                 </div>
                 <div>
-                <ObjectMapper array={this.state.comments} id={this.props.article.article_id} votes={this.props.article.votes} />
+                <ObjectMapper removeComment={this.removeComment} array={this.state.comments} id={this.props.article.article_id} votes={this.props.article.votes} />
                 </div>
                 <div>
                     <form onSubmit={this.handleSubmit} >
                     <button onClick={() => {this.handleClick(-1)}} disabled={this.state.page === 0} className="button">Previous page</button>
-                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.comments.length === 0} className="button">Next page</button>
+                    <button onClick={() => {this.handleClick(1)}} disabled={this.state.disable === true} className="button">Next page</button>
                     </form>
                 </div>
             </div>
@@ -41,8 +43,10 @@ class Comments extends Component {
         .then((comments) => {
             if (this._isMounted === true) {
             this.setState({
-                comments
+                comments,
+                page
             })
+            this.disable();
         }
         })
     }
@@ -63,9 +67,6 @@ class Comments extends Component {
         if (prevState.page !== this.state.page) {
             this.getComments(this.state.page);
         }
-        if (prevState.comments !== this.state.comments) {
-            this.getComments(this.state.page);
-        }
     }
 
     handleClick = (increment) => {
@@ -75,12 +76,14 @@ class Comments extends Component {
     handleSubmit = (event) => {
         event.preventDefault();
         this.getComments(this.state.page);
+        this.disable();
     }
 
     addNewComment = (newComment) => {
         this.setState((prevState) => ({
             comments: [newComment, ...prevState.comments]
         }))
+        this.disable();
     }
 
     removeComment = (filterComment) => {
@@ -91,6 +94,23 @@ class Comments extends Component {
         })
         this.setState({
             comments: filteredComments
+        })
+        this.getComments(this.state.page);
+        this.disable();
+    }
+
+    disable = () => {
+        api.getCommentsByArticleId(this.props.article.article_id, this.state.page + 1)
+        .then((comments) => {
+            if (comments.length === 0) {
+                this.setState({
+                    disable: true
+                })
+            } else {
+                this.setState({
+                    disable: false
+                })
+            }
         })
     }
 

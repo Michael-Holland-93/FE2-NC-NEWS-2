@@ -1,0 +1,5 @@
+.articles {
+    grid-area: main;
+    background-color: rgba(0, 0, 255, 0.1);
+    border: 3px solid rgba(0, 0, 255, 1);
+  }

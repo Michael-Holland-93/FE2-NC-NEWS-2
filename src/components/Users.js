@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from '@reach/router';
 import Error from './Error';
 import * as api from './api';
+import '../styling/Users.css';
 
 class Users extends Component {
     state = ({

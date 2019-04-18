@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import * as api from './api';
+import '../styling/DeleteComment.css';
 
 class DeleteComment extends Component {
     render() {
@@ -12,7 +13,10 @@ class DeleteComment extends Component {
 
     delComment = (event) => {
         event.preventDefault();
-        api.deleteComment(this.props.id, this.props.comment_id);
+        api.deleteComment(this.props.id, this.props.comment_id)
+        .then(() => {
+            this.props.removeComment(this.props.comment);
+        })
     }
 
 }

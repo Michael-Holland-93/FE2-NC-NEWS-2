@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as api from './api';
+import { Button } from 'react-bootstrap';
+import '../styling/Votes.css';
 
 class Votes extends Component {
     state = {
@@ -7,15 +9,15 @@ class Votes extends Component {
     }
     render() {
         return (
-            <div>
+            <div className="outervotes">
                 <section>
-                    <div>
+                    <div className="votes">
                     {this.props.type === 'comments' ? 
-                    <p>Votes: {this.props.comment_votes + this.state.voteChange}</p>
-                    : <p>Votes: {this.props.votes + this.state.voteChange}</p>}
+                    <p className="text">Votes: {this.props.comment_votes + this.state.voteChange}</p>
+                    : <p className="text">Votes: {this.props.votes + this.state.voteChange}</p>}
                     </div>
-                    <button onClick={() => this.vote(1)} disabled={this.state.voteChange === 1} className="button">Vote Up</button>
-                    <button onClick={() => this.vote(-1)} disabled={this.state.voteChange === -1} className="button">Vote Down</button>
+                    <Button className="button" onClick={() => this.vote(1)} disabled={this.state.voteChange === 1}>Vote Up</Button>
+                    <Button className="button" onClick={() => this.vote(-1)} disabled={this.state.voteChange === -1}>Vote Down</Button>
                 </section>
             </div>
         );

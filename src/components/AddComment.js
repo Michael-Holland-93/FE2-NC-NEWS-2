@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import * as api from './api';
+import '../styling/AddComment.css';
+import { Button } from 'react-bootstrap';
 
 class AddComment extends Component {
     state = {
@@ -14,7 +16,7 @@ class AddComment extends Component {
                             <ul className="bulletPoints">
                                 <li><label>Comment Body</label>
                                 <input type="text" id="commentBody" onChange={this.setBody} /></li>
-                                <li><button className="addCommentButton" onClick={this.addComment}>Add Comment</button></li>
+                                <li><Button className="button" onClick={this.addComment}>Add Comment</Button></li>
                             </ul>
                 </form>
                 <br />

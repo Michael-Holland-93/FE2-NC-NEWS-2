@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import * as api from './api';
 import { navigate } from '@reach/router';
+import '../styling/DeleteArticle.css';
 
 class DeleteArticle extends Component {
     render() {
@@ -14,8 +15,8 @@ class DeleteArticle extends Component {
 
     delArticle = (event) => {
         event.preventDefault();
-        api.deleteArticle(this.props.id)
-        navigate(`/`);
+        api.deleteArticle(this.props.id);
+        navigate(`/topics`);
     }
 
 }

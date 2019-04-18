@@ -1,8 +1,9 @@
 import React from 'react';
 import Votes from './Votes';
 import DeleteComment from './DeleteComment';
+import '../styling/ObjectMapper.css';
 
-const ObjectMapper = ({array, id, votes}) => {
+const ObjectMapper = ({array, id, votes, removeComment}) => {
     return (
         <div className="parent">
             <ul className="bulletPoints">
@@ -15,13 +16,18 @@ const ObjectMapper = ({array, id, votes}) => {
                         for (var key in object) {
                             if (key === 'created_at') {
                                 const date = new Date(object[key]);
-                                const formattedDate = date.toLocaleDateString();
-                                arr.push(key + ':' + ' ' + formattedDate)
+                                if (object[key] === null) {
+                                    const formattedDate = 'unknown date';
+                                    arr.push(key + ':' + ' ' + formattedDate)
+                                } else {
+                                    const formattedDate = date.toLocaleDateString();
+                                    arr.push(key + ':' + ' ' + formattedDate)
+                                }
                             } else if (key !== 'comment_id' && key !== 'votes' && key !== 'user_id' && key !== 'avatar_url') {
                                 arr.push(key + ':' + ' ' + object[key]);
                             }
                     }
-                    return <li>
+                    return <li key={'comment'[index]}>
                     <ul className="bulletPoints">
                         {arr.map((item) => {
                             return <li key={item}>{item}</li>
@@ -32,7 +38,7 @@ const ObjectMapper = ({array, id, votes}) => {
                     <br />
                         <Votes type='comments' id={id} votes={votes} comment_id={object.comment_id} comment_votes={object.votes} />
                     <br />
-                        <DeleteComment id={id} comment_id={object.comment_id} />
+                        <DeleteComment comment={object} id={id} comment_id={object.comment_id} removeComment = {removeComment}/>
                     <br /> 
                     </>
                     }

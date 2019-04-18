@@ -1,9 +1,10 @@
 import React from 'react';
+import '../styling/Footer.css';
 
 const Footer = () => {
     return (
         <div className="Footer">
-            mike.holland@btinternet.com
+            Michael Holland
         </div>
     );
 };

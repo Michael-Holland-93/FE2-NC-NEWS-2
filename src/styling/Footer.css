@@ -1,0 +1,6 @@
+.Footer {
+    grid-area: footer;
+    background-color: rgba(0, 255, 255, 0.1);
+    border: 3px solid rgba(0, 255, 255, 1);
+    font-size: 3vw;
+  }

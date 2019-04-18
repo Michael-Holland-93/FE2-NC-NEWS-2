@@ -3,6 +3,7 @@ import * as api from './api';
 import Main from './Main';
 import Error from './Error';
 import Comments from './Comments';
+import '../styling/Article.css';
 
 class Article extends Component {
     state = {
@@ -11,9 +12,9 @@ class Article extends Component {
         article_id: 0,
         topic: '',
         body: '',
-        created_at: Number,
-        comment_count: Number,
-        votes: Number,
+        created_at: null,
+        comment_count: null,
+        votes: null,
         err: null,
         count: 0
     }

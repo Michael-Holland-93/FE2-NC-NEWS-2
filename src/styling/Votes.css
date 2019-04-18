@@ -1,0 +1,12 @@
+.votes {
+    width: 100px;
+    background: red;
+    border-radius: 100px/50px;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+} 
+
+.text {
+    font-size: 2vw;
+}

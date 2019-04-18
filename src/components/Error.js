@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from '@reach/router';
+import '../styling/Error.css';
 
 class Error extends Component {
     render() {
